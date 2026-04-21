@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    body {
+        text-align: center;
+        font-size:30px;
+    }
+    img {
+        width:300px;
+        margin:20px auto;
+    }
+</style>
 <body>
-
+<h1>로또 결과</h1>
+<hr>
+<h1 style="color:red" th:text="${lottoVO.result}"></h1>
+<img th:src="${lottoVO.imgName}" alt="결과 이미지">
+<hr>
+<a th:if="${refinfo != null}" th:href="${refinfo}">재시도...</a>
 </body>
 </html>
