@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    @font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+    }
+    body {
+       font-family:'Paperozi';
+
+    }
+    button {
+    font-family: inherit;
+    padding: 10px 20px;
+    }
+</style>
+<body>
+<h1>우리팀 소개</h1>
+<hr>
+<form th:action="@{/myTeam1}" method="GET">
+    <button type="submit" name="what" value="team">우리팀명</button>
+    <button type="submit" name="what" value="member">우리팀원</button>
+</form>
+<div th:if="${what == 'team'}">
+    <h3 th:text="|우리팀의 팀명은 ${myteam.teamName}입니다.|"></h3>
+</div>
+<div th:if="${what == 'member'}">
+    <div th:if="${myteam.teamName != null}">
+        <h3 th:text="|${myteam.teamName}의 팀원들을 소개합니다.|"></h3>
+
+        <ul>
+            <th:block  th:each="m : ${myteam.teamMember}">
+                <li th:text="|${m.toString()}|"></li>
+            </th:block>
+        </ul>
+    </div>
+</div>
+<div th:if="${what == null}">
+    <h3 th:text="|버튼을 클릭해 주세요.|"></h3>
+</div>
+</body>
+</html>
