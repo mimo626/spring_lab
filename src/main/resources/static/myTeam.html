@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    @font-face {
+    font-family: 'Paperozi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+    }
+    body {
+       font-family:'Paperozi';
+
+    }
+    button {
+    font-family: inherit;
+    padding: 10px 20px;
+    }
+</style>
+<body>
+<h1>우리팀 소개</h1>
+<hr>
+<button onclick="printTeamInfo('myTeam2', 'team')">우리팀명</button>
+<button onclick="printTeamInfo('myTeam2', 'member')">우리팀원</button>
+<output id="result"></output>
+<ul id="list"></ul>
+<script>
+    function printTeamInfo(target, type){
+        const request = new XMLHttpRequest();
+        let link = '/' + target;
+        if(type === 'team') {
+            link += '?id=team';
+        } else if(type === 'member') {
+            link += '?id=member';
+        }
+        request.onload = function(){
+            if(request.status === 200) {
+                const result = document.querySelector("#result");
+                const jsonDOM = JSON.parse(request.responseText);
+                const list = document.querySelector("#list");
+
+                console.log("responseText " + request.responseText);
+                console.log("jsonDOM " + jsonDOM);
+
+                if(type === 'team'){
+                    result.innerHTML = "<h3>우리팀의 팀명은 " + jsonDOM.teamName + "입니다.</h3>";
+                    list.innerHTML = "";
+
+                } else {
+                    let members = jsonDOM.teamMember;
+                    result.innerHTML = "<h3>" + jsonDOM.teamName + "팀의 팀원들을 소개합니다.</h3>";
+
+                    list.innerHTML = "";
+
+                    for(let m of members){
+                        list.innerHTML += "<li>" + m.name +": 별명은 " + m.nickName + "이고 좋아하는 음식은 " + m.food + "입니다.</li>";
+                    }
+                }
+            }
+        };
+        request.open('GET', link, true);
+        request.send();
+    }
+</script>
+</body>
+</html>
