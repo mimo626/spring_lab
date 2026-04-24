@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	@font-face {
+        font-family: 'Paperozi';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+        font-weight: 600;
+        font-display: swap;
+    }
+
+    body {
+       font-family: "Paperozi";
+       text-align: center;
+    }
+
+    main {
+       width: fit-content;
+       margin: 20px auto;
+    }
+
+    img {
+       width: 180px;
+       margin: 20px;
+       border: 4px dotted green;
+       box-shadow: 8px 8px 10px gray;
+    }
+
+    button {
+       border:none;
+       background:none;
+    }
+
+
+    .productsList {
+       width: fit-content;
+       margin: 0 auto;
+       background-color: #e2f0cb;
+       border-radius: 20px;
+       color: #36454F;
+       padding: 30px 50px;
+    }
+
+    .productsList h2 {
+        border-bottom: 4px dotted green;
+        padding-bottom: 15px;
+	}
+    .productsList ul {
+        margin-top: 20px;
+        padding: 0;
+        list-style-position: inside;
+    }
+    .productsList li {
+        margin-bottom: 8px;
+    }
+
+    .productsList div:last-child {
+        margin-top: 30px;
+    }
+
+    a {
+       text-decoration: none;
+       color: black;
+       display: inline-block;
+       margin: 0 15px;
+       padding: 5px 10px;
+       font-weight: bold;
+    }
+
+    a:hover {
+        color: green;
+    }
+</style>
+</head>
+<body>
+<header>
+</header>
+<main>
+	<th:block th:if="${page == 'product'}">
+		<h1>원하는 상품을 클릭하세요~~</h1>
+		<br>
+		<form action="/basket" method="get">
+			<button type="submit" name="pid" value="p001"><img src="../images/cuteone.jpg" alt="1" /></button>
+			<button type="submit" name="pid" value="p002"><img src="../images/cutetwo.jpg" alt="2" /></button>
+			<button type="submit" name="pid" value="p003"><img src="../images/cutethree.jpg" alt="3" /></button>
+			<button type="submit" name="pid" value="p004"><img src="../images/cutefour.jpg" alt="4" /></button>
+			<button type="submit" name="pid" value="p005"><img src="../images/cutefive.jpg" alt="5" /></button><br>
+			<button type="submit" name="pid" value="p006"><img src="../images/cutesix.jpg" alt="6" /></button>
+			<button type="submit" name="pid" value="p007"><img src="../images/cuteseven.jpg" alt="7" /></button>
+			<button type="submit" name="pid" value="p008"><img src="../images/cuteeight.jpg" alt="8" /></button>
+			<button type="submit" name="pid" value="p009"><img src="../images/cutenine.jpg" alt="9" /></button>
+			<button type="submit" name="pid" value="p010"><img src="../images/cuteten.jpg" alt="10" /></button>
+		</form>
+	</th:block>
+
+	<th:block th:if="${page == 'basket'}">
+		<h1>장바구니</h1>
+		<hr>
+		<div class="productsList">
+			<th:block th:if="${message != 'delete'}">
+				<h2>선택한 상품 리스트</h2>
+				<ul>
+					<th:block th:each="product: ${products}">
+						<li th:if="${product != 0}"
+							th:text="|p${#numbers.formatInteger(productStat.index + 1, 3)} 상품 : ${product}개|">
+					</th:block>
+				</ul>
+				<a href="/basket?type=delete">상품 비우기</a>
+				<a href="/product">상품 선택하기</a>
+			</th:block>
+
+			<th:block th:unless="${message != 'delete'}">
+				<h2>선택한 상품이 없음</h2>
+				<a href="/product">상품 선택하기</a>
+			</th:block>
+		</div>
+	</th:block>
+
+</main>
+</body>
+</html>
