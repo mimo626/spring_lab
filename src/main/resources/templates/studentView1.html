@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:if="${msg}">
+    <h2>[[${msg}]]</h2>
+</th:block>
+
+<th:block th:unless="${msg}">
+
+    <th:block th:if="${list}">
+        <ul>
+            <th:block th:each="s:${list}">
+                <li th:text="|이름: ${s.name}     점수: ${s.score}|"></li>
+            </th:block>
+        </ul>
+    </th:block>
+
+    <th:block th:if="${score}">
+        <h2 th:text="|점수: ${score}|"></h2>
+    </th:block>
+
+    <th:block th:if="${avgScore}">
+        <h2 th:text="|평균 점수: ${avgScore}|"></h2>
+    </th:block>
+
+</th:block>
+</body>
+</html>
