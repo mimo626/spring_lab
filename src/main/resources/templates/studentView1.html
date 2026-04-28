@@ -38,6 +38,50 @@
     tr:last-child td {
         border-bottom: none;
     }
+    input {
+    margin: 10px;
+    }
+
+    .insert-btn {
+        display: inline-block;
+        padding: 12px 24px;
+        margin: 20px 0;
+        background-color: #f1f3f5;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .inputForm input[type="text"],
+    .inputForm input[type="number"] {
+        width: 250px;
+        padding: 15px;
+        margin: 8px 0;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: 'Cafe24Surround';
+        box-sizing: border-box;
+    }
+
+    .inputForm input[type="submit"] {
+        width: 250px;
+        padding: 15px;
+        margin-top: 15px;
+        font-size: 18px;
+        background-color: #000000;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-family: 'Cafe24Surround';
+        font-weight: bold;
+        transition: 0.2s;
+    }
 </style>
 <body>
 <h1>학생 정보</h1>
@@ -69,6 +113,28 @@
                 </tr>
             </th:block>
     </table>
+    <a class="insert-btn" onclick="showInputForm()">학생 정보 입력</a>
+
+    <div class="inputForm" style="display: none">
+        <form action="/insert" method="post">
+            <input type="text" name="name" placeholder="이름 입력" required value=""><br>
+            <input type="number" name="score" placeholder="점수(0~100) 입력" required value=""><br>
+            <input type="submit" value="저장">
+        </form>
+    </div>
 </div>
+<script th:inline="javascript">
+    let failMsg = [[${insertFail}]];
+
+    if(failMsg) {
+        alert(failMsg);
+        document.querySelector('.inputForm').style.display = 'block';
+    }
+</script>
+<script>
+    function showInputForm() {
+        document.querySelector('.inputForm').style.display = 'block';
+    }
+</script>
 </body>
 </html>
