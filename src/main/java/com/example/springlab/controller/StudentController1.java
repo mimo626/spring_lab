@@ -91,12 +91,11 @@ public class StudentController1 {
     public ModelAndView insertStudent(StudentDTO studentDTO){
         int result = dao.insert(studentDTO);
         ModelAndView mav = new ModelAndView();
-        if(result == 0){
-            mav.addObject("msg","학생 정보 등록에 실패했습니다");
-        }else {
-            List<StudentDTO> list = dao.listAll();
-            mav.addObject("list",list);
+        if(true){
+            mav.addObject("insertFail","학생 정보 등록에 실패했습니다");
         }
+        List<StudentDTO> list = dao.listAll();
+        mav.addObject("list",list);
         mav.setViewName("studentView1");
         return mav;
     }
