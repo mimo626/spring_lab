@@ -4,29 +4,71 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    @font-face {
+        font-family: 'Cafe24Surround';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+        font-weight: normal;
+        font-display: swap;
+    }
+    body {
+        text-align: center;
+        font-family: 'Cafe24Surround';
+    }
+    div {
+
+        margin 20px auto;
+    }
+   div {
+        margin: 20px auto;
+    }
+    table {
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    td {
+        padding: 15px 30px;
+        border-bottom: 1px solid #eeeeee;
+        font-size: 18px;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+</style>
 <body>
-<th:block th:if="${msg}">
-    <h2>[[${msg}]]</h2>
-</th:block>
+<h1>학생 정보</h1>
+<hr>
+<div class="studentInfo">
+    <th:block th:if="${msg}">
+        <h2>[[${msg}]]</h2>
+    </th:block>
+    <table>
+        <th:block th:if="${list}">
+            <tr th:each=" s : ${list}">
+                <td th:text="${s.name}"></td>
+                <td th:text="${s.score}"></td>
+                <td><a th:href="@{/delete(name=${s.name})}"><img src="/images/delete.png" width="38"></a></td>
+            </tr>
+        </th:block>
 
-<th:block th:unless="${msg}">
-
-    <th:block th:if="${list}">
-        <ul>
-            <th:block th:each="s:${list}">
-                <li th:text="|이름: ${s.name}     점수: ${s.score}|"></li>
+            <th:block th:if="${score}">
+                <tr>
+                    <td th:text="${param.name}"></td>
+                    <td th:text="${score}"></td>
+                </tr>
             </th:block>
-        </ul>
-    </th:block>
 
-    <th:block th:if="${score}">
-        <h2 th:text="|점수: ${score}|"></h2>
-    </th:block>
-
-    <th:block th:if="${avgScore}">
-        <h2 th:text="|평균 점수: ${avgScore}|"></h2>
-    </th:block>
-
-</th:block>
+            <th:block th:if="${avgScore}">
+                <tr>
+                    <td>평균 점수</td>
+                    <td th:text="${avgScore}"></td>
+                </tr>
+            </th:block>
+    </table>
+</div>
 </body>
 </html>
