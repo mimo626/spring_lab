@@ -82,6 +82,9 @@
         font-weight: bold;
         transition: 0.2s;
     }
+    #sqlInsertError {
+        color: red;
+    }
 </style>
 <body>
 <h1>학생 정보</h1>
@@ -118,16 +121,21 @@
     <div class="inputForm" style="display: none">
         <form action="/insert" method="post">
             <input type="text" name="name" placeholder="이름 입력" required value=""><br>
-            <input type="number" name="score" placeholder="점수(0~100) 입력" required value=""><br>
+            <input type="number" name="score" placeholder="점수(0~100) 입력" min="0" max="100" required value=""><br>
             <input type="submit" value="저장">
         </form>
     </div>
+    <h3 id="sqlInsertError" th:if="${sqlInsertError}" th:text="${sqlInsertError}"></h3>
 </div>
 <script th:inline="javascript">
-    let failMsg = [[${insertFail}]];
+    let insertFail = [[${insertFail}]];
+    let sqlInsertError = [[${sqlInsertError}]];
 
-    if(failMsg) {
-        alert(failMsg);
+    if(insertFail) {
+        alert(insertFail);
+        document.querySelector('.inputForm').style.display = 'block';
+    }
+    if(sqlInsertError) {
         document.querySelector('.inputForm').style.display = 'block';
     }
 </script>
