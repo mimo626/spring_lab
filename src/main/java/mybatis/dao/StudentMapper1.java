@@ -29,7 +29,7 @@ public interface StudentMapper1 {
     @Select("select avg(score) from student")
     public int getScoreAvg();
 //    학생 정보를 입력 메서드 - insertStudent(StudentDTO dto)
-    @Insert("insert into student valuse (#{name}, #{score})")
+    @Insert("insert into student values (#{name}, #{score})")
     public int insert(StudentDTO studentDTO);
 //    학생 정보를 삭제 메서드 - delete(String name)
     @Delete("delete from student where name = #{name}")
