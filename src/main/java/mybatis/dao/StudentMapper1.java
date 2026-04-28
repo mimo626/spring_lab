@@ -1,6 +1,8 @@
 package mybatis.dao;
 
 import com.example.springlab.domain.StudentDTO;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,4 +28,10 @@ public interface StudentMapper1 {
 //    전체 학생 점수의 평균을 리턴하는 메서드 - getScoreAvg()
     @Select("select avg(score) from student")
     public int getScoreAvg();
+//    학생 정보를 입력 메서드 - insertStudent(StudentDTO dto)
+    @Insert("insert into student valuse (#{name}, #{score})")
+    public int insert(StudentDTO studentDTO);
+//    학생 정보를 삭제 메서드 - delete(String name)
+    @Delete("delete from student where name = #{name}")
+    public int delete(String name);
 }
