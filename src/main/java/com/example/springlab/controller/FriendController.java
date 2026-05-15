@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/friend")
 public class FriendController {
 
@@ -109,7 +110,7 @@ public class FriendController {
 
             friendRepository.delete(friend);
 
-            return ResponseEntity.status(HttpStatus.RESET_CONTENT).build();
+            return ResponseEntity.status(HttpStatus.OK).body(id + "의 친구를 삭제했어요!");
 
         } catch (Exception e) {
             return ResponseEntity
@@ -117,6 +118,7 @@ public class FriendController {
                     .build();
         }
     }
+
 }
 
 
