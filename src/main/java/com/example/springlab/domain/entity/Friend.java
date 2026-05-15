@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 @Data
 @ToString
 @Entity
+@EqualsAndHashCode(of = "id")
 public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
