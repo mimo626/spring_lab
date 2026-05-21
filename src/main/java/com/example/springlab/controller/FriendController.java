@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/friend")
+@RequestMapping("/friends")
 public class FriendController {
 
     @Autowired
@@ -54,14 +54,14 @@ public class FriendController {
 // - 친구 이름을 입력하면 해당 친구 데이터를 JSON 형식으로 리턴하는 메서드를 구현한다.
 //  입력 : 성공하면 응답코드 201(Created), 실패하면 500과 실패했다는 메시지
     @GetMapping(params = "username")
-    public ResponseEntity<Friend> getFriendByFname(@RequestParam String username) {
-        Friend friend = friendRepository.findByFname(username);
-        if (friend == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    public ResponseEntity<List<Friend>> getFriendByFname(@RequestParam String username) {
+        List<Friend> friends = friendRepository.findAllByFname(username);        // 친구를 찾지 못했을 때: 404 Not Found
+        if (friends.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(friend);
+
+        // 조회를 성공했을 때: 200 OK
+        return ResponseEntity.status(HttpStatus.OK).body(friends);
     }
 // 클라이언트에서 JSON 형식으로 전달된 데이터를 Friend 테이블에 저장하는 메서드
 //  이 때는 친구의 이름과 나이 데이터만 전달한다. – POST 방식
